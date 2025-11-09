@@ -1,0 +1,351 @@
+/* classless.blog.css - Blog layout patterns */
+
+body {
+  display: grid;
+  gap: var(--space-xl);
+  grid-template-areas:
+    "header  header   header"
+    "logo    logo     logo"
+    "nav     nav      nav"
+    "aside   main     main"
+    "footer  footer   footer"
+    "alert   alert    alert";
+  grid-template-columns: 15rem 1fr 1fr;
+  min-height: 100vh;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+/* Grid placement - Semantic structure enforcement */
+body > header {
+  grid-area: header;
+}
+
+body > figure {
+  grid-area: logo;
+}
+
+body > nav {
+  grid-area: nav;
+}
+
+body > aside {
+  grid-area: aside;
+}
+
+body > main {
+  grid-area: main;
+}
+
+body > footer {
+  grid-area: footer;
+}
+
+body > section#alert-region {
+  grid-area: alert;
+}
+
+/* Header styling */
+body > header {
+  padding: var(--space-xl);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  color: white;
+  border-radius: var(--radius-lg);
+}
+
+body > header h1 {
+  margin-bottom: var(--space-sm);
+  font-size: var(--text-4xl);
+}
+
+body > header p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: var(--text-lg);
+}
+
+/* Logo/Brand area */
+body > figure {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+}
+
+body > figure img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius-md);
+}
+
+body > figure figcaption {
+  font-weight: 600;
+  font-size: var(--text-xl);
+  text-align: left;
+  margin: 0;
+  color: var(--color-text);
+}
+
+/* Navigation */
+body > nav {
+  padding: var(--space-md) 0;
+  border-bottom: 2px solid var(--color-border);
+}
+
+body > nav ul {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+body > nav li {
+  margin: 0;
+}
+
+body > nav a {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+body > nav a:hover {
+  background: var(--color-bg-subtle);
+}
+
+body > nav a:focus-visible {
+  background: var(--color-bg-subtle);
+}
+
+
+/* Pagination */
+body > main > nav {
+  padding: var(--space-md) 0;
+  border-bottom: 2px solid var(--color-border);
+}
+
+body > main > nav ul {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+body > main > nav li {
+  margin: 0;
+}
+
+body > main > nav a {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+body > main > nav a:hover {
+  background: var(--color-bg-subtle);
+}
+
+body > main > nav a:focus-visible {
+  background: var(--color-bg-subtle);
+}
+
+
+/* Sidebar */
+body > aside {
+  padding: var(--space-lg);
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-lg);
+  align-self: start;
+  position: sticky;
+  top: var(--space-md);
+}
+
+body > aside h2 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--color-border);
+}
+
+body > aside ul {
+  padding: 0;
+  margin: 0;
+}
+
+body > aside li {
+  margin-bottom: var(--space-sm);
+}
+
+body > aside a {
+  display: block;
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+body > aside a:hover {
+  background: var(--color-bg);
+  padding-left: var(--space-md);
+}
+
+/* Main content area */
+body > main {
+  padding: var(--space-lg) 0;
+}
+
+body > main > section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+/* Article cards */
+article {
+  padding: var(--space-xl);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+}
+
+article:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+article > header {
+  margin-bottom: var(--space-md);
+  padding: 0;
+  background: none;
+  border-radius: 0;
+}
+
+article > header h2 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-sm);
+  color: var(--color-text);
+}
+
+article > header p {
+  margin: 0;
+}
+
+article > header time {
+  font-size: var(--text-sm);
+}
+
+article > p {
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  margin-bottom: var(--space-lg);
+}
+
+article > footer {
+  margin-top: var(--space-lg);
+  padding: 0;
+  background: none;
+  border-radius: 0;
+}
+
+article > footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-weight: 600;
+  color: var(--color-primary);
+  padding: var(--space-sm) 0;
+}
+
+article > footer a::after {
+  content: '→';
+  transition: transform var(--transition-fast);
+}
+
+article > footer a:hover::after {
+  transform: translateX(4px);
+}
+
+/* Page footer */
+body > footer {
+  padding: var(--space-xl);
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  margin-top: var(--space-2xl);
+}
+
+body > footer p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* Alert region */
+body > section#alert-region {
+  min-height: 2rem;
+}
+
+body > section#alert-region:empty {
+  display: none;
+}
+
+/* Responsive design */
+@media (max-width: 64rem) {
+  body {
+    grid-template-areas:
+      "header  header"
+      "logo    logo"
+      "nav     nav"
+      "main    main"
+      "aside   aside"
+      "footer  footer"
+      "alert   alert";
+    grid-template-columns: 1fr 1fr;
+  }
+
+  body > aside {
+    position: static;
+  }
+}
+
+@media (max-width: 48rem) {
+  body {
+    grid-template-areas:
+      "header"
+      "logo"
+      "nav"
+      "main"
+      "aside"
+      "footer"
+      "alert";
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  body > header {
+    padding: var(--space-lg);
+  }
+
+  body > header h1 {
+    font-size: var(--text-3xl);
+  }
+
+  body > nav ul {
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: stretch;
+  }
+
+  body > nav a {
+    display: block;
+    text-align: center;
+  }
+
+  article {
+    padding: var(--space-lg);
+  }
+}

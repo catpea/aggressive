@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Classless Revolution</title>
+<link rel="stylesheet" href="classless.reset.css">
+<link rel="stylesheet" href="classless.base.css">
+<link rel="stylesheet" href="classless.blog.css">
+</head>
+<body>
+  <header>
+    <h1>The Classless Revolution</h1>
+    <p>Rethinking web development, one semantic element at a time</p>
+  </header>
+
+  <figure>
+    <img src="/assets/logo.svg" alt="The Classless Revolution Logo">
+    <figcaption>Classless</figcaption>
+  </figure>
+
+  <nav aria-label="Primary navigation">
+    <ul>
+      <li><a href="/" aria-current="page">Home</a></li>
+      <li><a href="/articles">Articles</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/feed.xml">RSS</a></li>
+    </ul>
+  </nav>
+
+  <aside aria-label="Sidebar">
+    <h2>Categories</h2>
+    <ul>
+      <li><a href="/category/philosophy">Philosophy</a></li>
+      <li><a href="/category/css">CSS</a></li>
+      <li><a href="/category/javascript">JavaScript</a></li>
+      <li><a href="/category/ai">AI</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <section aria-label="Latest posts">
+      <article>
+        <header>
+          <h2>The Death of Class Soup</h2>
+          <p><time datetime="2025-11-08">November 8, 2025</time></p>
+        </header>
+        
+<p>Remember the early web? A <code>&lt;header&gt;</code> was a header. An <code>&lt;article&gt;</code> was an article. Then came the frameworks.</p>
+
+<p>Bootstrap promised us rapid development. It delivered class poison:</p>
+
+<pre><code>&lt;div class="row justify-content-center"&gt;
+  &lt;div class="col-md-8 col-lg-6"&gt;
+    &lt;div class="card shadow-lg"&gt;
+      &lt;div class="card-body p-4"&gt;</code></pre>
+
+<p>This isn't development. It's class archaeology. You spend more time reading class names than understanding structure.</p>
+
+<p>The classless movement brings us home. Semantic HTML. Rigid structure. Beautiful code.</p>
+
+        <footer>
+          <a href="/posts/death-of-class-soup">Continue reading →</a>
+        </footer>
+      </article>
+      <article>
+        <header>
+          <h2>CSS Grid: The Great Liberator</h2>
+          <p><time datetime="2025-11-05">November 5, 2025</time></p>
+        </header>
+        
+<p>CSS Grid changed everything. Suddenly, we could place elements with <code>grid-template-areas</code>:</p>
+
+<pre><code>grid-template-areas:
+  "header header"
+  "nav    main"
+  "footer footer";</code></pre>
+
+<p>No classes. No wrappers. Just semantic placement.</p>
+
+<p>The secret is embracing constraints. Instead of infinite flexibility (Bootstrap's trap), we create rigid patterns that work beautifully.</p>
+
+        <footer>
+          <a href="/posts/css-grid-liberator">Read more →</a>
+        </footer>
+      </article>
+      <article>
+        <header>
+          <h2>OOP for HTML: The Control Layer</h2>
+          <p><time datetime="2025-11-01">November 1, 2025</time></p>
+        </header>
+        
+<p>What if you never had to write HTML? What if there was a semantic API that enforced structure?</p>
+
+<pre><code>const page = new BlogPage({ 
+  title: 'My Blog' 
+});
+page.addPost({ 
+  title: 'Hello', 
+  content: '&lt;p&gt;World&lt;/p&gt;' 
+});
+const html = page.render();</code></pre>
+
+<p>This isn't a component framework. It's a control program that generates semantic HTML matching your classless CSS patterns.</p>
+
+<p>The user never adds wrappers. Never wonders where to place elements. The structure is enforced by design.</p>
+
+        <footer>
+          <a href="/posts/oop-for-html">Read more →</a>
+        </footer>
+      </article>
+      <article>
+        <header>
+          <h2>The AI-Prompted Future</h2>
+          <p><time datetime="2025-10-28">October 28, 2025</time></p>
+        </header>
+        
+<p>Imagine this workflow:</p>
+
+<blockquote>
+<p>"Claude, create a pricing page with three tiers, a comparison table, and FAQ section."</p>
+</blockquote>
+
+<p>Instantly, you receive:</p>
+
+<ul>
+<li><code>classless.pricing.css</code> - Rigid grid structure</li>
+<li><code>PricingPage.js</code> - Semantic control layer</li>
+<li><code>demo.html</code> - Perfect example</li>
+</ul>
+
+<p>This isn't science fiction. The patterns are formalizable. The structure is rigid. The AI just needs to understand classless grammar.</p>
+
+<p>We're moving from frameworks to prompts. From class soup to semantic conversations.</p>
+
+        <footer>
+          <a href="/posts/ai-prompted-future">Read more →</a>
+        </footer>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 The Classless Revolution. Built with semantic HTML and zero classes.</p>
+  </footer>
+
+  <section id="alert-region" aria-live="polite"></section>
+</body>
+</html>

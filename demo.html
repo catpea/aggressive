@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Beautiful Blog</title>
+<link rel="stylesheet" href="classless.reset.css">
+<link rel="stylesheet" href="classless.base.css">
+<link rel="stylesheet" href="classless.blog.css">
+</head>
+<body>
+  <header>
+    <h1>My Beautiful Blog</h1>
+    <p>Thoughts on web design and the future of HTML</p>
+  </header>
+
+  <figure>
+    <img src="https://via.placeholder.com/64/4F46E5/FFFFFF?text=Logo" alt="Site logo">
+    <figcaption>BeautifulWeb</figcaption>
+  </figure>
+
+  <nav aria-label="Primary navigation">
+    <ul>
+      <li><a href="#" aria-current="page">Home</a></li>
+      <li><a href="#">Articles</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <aside aria-label="Sidebar">
+    <h2>Categories</h2>
+    <ul>
+      <li><a href="#">Design</a></li>
+      <li><a href="#">Code</a></li>
+      <li><a href="#">Tools</a></li>
+      <li><a href="#">Philosophy</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <section aria-label="Latest posts">
+      <article>
+        <header>
+          <h2>Why Classless CSS Matters</h2>
+          <p><time datetime="2025-11-01">November 1, 2025</time></p>
+        </header>
+        <p>For too long, we've been drowning in class soup. Bootstrap gave us components, but at what cost? Every element became a div with six classes, and readability vanished.</p>
+        <p>The classless movement brings us back to semantic HTML, where a &lt;header&gt; is just a header, and an &lt;article&gt; is just an article. No .card .card-body .card-title needed.</p>
+        <footer>
+          <a href="#">Read full article →</a>
+        </footer>
+      </article>
+
+      <article>
+        <header>
+          <h2>Building a Grid Without Utility Classes</h2>
+          <p><time datetime="2025-10-28">October 28, 2025</time></p>
+        </header>
+        <p>CSS Grid is powerful enough that we don't need utility classes anymore. With semantic HTML and intelligent grid-template-areas, we can create complex layouts that are actually readable.</p>
+        <p>The key is embracing constraints. Instead of infinite flexibility (which leads to chaos), we create well-defined patterns that work beautifully within their domain.</p>
+        <footer>
+          <a href="#">Read full article →</a>
+        </footer>
+      </article>
+
+      <article>
+        <header>
+          <h2>The Future is AI-Prompted CSS</h2>
+          <p><time datetime="2025-10-15">October 15, 2025</time></p>
+        </header>
+        <p>Imagine describing your layout needs to an AI: "Create a pricing page with three tiers" - and receiving classless.pricing.css, perfectly tailored and human-readable.</p>
+        <p>This isn't science fiction. The patterns are formalizable. The structure is rigid. The AI just needs to understand the grammar of classless design.</p>
+        <footer>
+          <a href="#">Read full article →</a>
+        </footer>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Jane Doe. Built with love and zero classes.</p>
+  </footer>
+
+  <section id="alert-region" aria-live="polite"></section>
+</body>
+</html>
