@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "aggressive",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Make HTML beautiful and friendly again",
   "main": "index.js",
   "scripts": {
