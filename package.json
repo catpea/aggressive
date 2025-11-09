@@ -1,13 +1,28 @@
 {
+  "type": "module",
   "name": "aggressive",
   "version": "1.0.0",
   "description": "Make HTML beautiful and friendly again",
   "main": "index.js",
   "scripts": {
+    "save": "git add .; git commit -m 'Updated Release'; npm version patch; npm publish; git push --follow-tags;",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "blog"
+  ],
+  "author": "catpea (https://github.com/catpea)",
   "license": "MIT",
-  "type": "module"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/catpea/aggressive.git"
+  },
+  "bugs": {
+    "url": "https://github.com/catpea/aggressive/issues"
+  },
+  "homepage": "https://catpea.github.io/aggressive",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/catpea"
+  }
 }
