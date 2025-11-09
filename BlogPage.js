@@ -1,3 +1,5 @@
+import {esc} from './lib.js';
+
 /**
  * BlogPage - Semantic control layer for classless blog HTML generation
  *
@@ -10,7 +12,7 @@
  *     subtitle: 'Thoughts on web design'
  *   });
  *   page.setLogo({ src: 'logo.svg', alt: 'Site logo', caption: 'My Logo' });
- *   page.addNavLink({ text: 'Home', href: '#' });
+ *   page.addNavLink({ text: 'Home', url: '#' });
  *   page.addPost({ title: 'Hello World', date: '2025-11-08', content: '...' });
  *   const html = page.render();
  */
@@ -41,7 +43,7 @@ export default class BlogPage {
     this.posts = [];
 
     // Footer content
-    this.footerText = `© ${new Date().getFullYear()} All rights reserved.`;
+    this.footerText = `&copy; ${new Date().getFullYear()} All rights reserved.`;
 
     // Alert region (usually empty, for dynamic content)
     this.alerts = [];
@@ -60,8 +62,8 @@ export default class BlogPage {
   /**
    * Add a navigation link
    */
-  addNavLink({ text, href, ariaCurrent = null }) {
-    this.navLinks.push({ text, href, ariaCurrent });
+  addNavLink({ text, url, ariaCurrent = null }) {
+    this.navLinks.push({ text, url, ariaCurrent });
     return this;
   }
 
@@ -76,8 +78,8 @@ export default class BlogPage {
   /**
    * Add a pager link
    */
-  addPagerLink({ text, href, ariaCurrent = null }) {
-    this.pagerLinks.push({ text, href, ariaCurrent });
+  addPagerLink({ text, url, ariaCurrent = null }) {
+    this.pagerLinks.push({ text, url, ariaCurrent });
     return this;
   }
 
@@ -92,8 +94,8 @@ export default class BlogPage {
   /**
    * Add a sidebar category
    */
-  addCategory({ text, href }) {
-    this.categories.push({ text, href });
+  addCategory({ text, url }) {
+    this.categories.push({ text, url });
     return this;
   }
 
@@ -108,7 +110,7 @@ export default class BlogPage {
   /**
    * Add a blog post - the semantic heart of the blog
    */
-  addPost({ title, date, datetime, content, readMoreHref = '#', readMoreText = 'Read more →' }) {
+  addPost({ title, date, datetime, content, url = '#', readMoreText = 'Read more →' }) {
     // If datetime not provided, use date
     const dt = datetime || date;
 
@@ -117,7 +119,7 @@ export default class BlogPage {
       date,
       datetime: dt,
       content,
-      readMoreHref,
+      url,
       readMoreText
     });
     return this;
@@ -143,49 +145,48 @@ export default class BlogPage {
    * Render the complete HTML document
    */
   render() {
-    return `<!DOCTYPE html>
+    return `
+<!DOCTYPE html>
 <html lang="${this.lang}">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${this._escapeHtml(this.title)}</title>
-<link rel="stylesheet" href="classless.reset.css">
-<link rel="stylesheet" href="classless.base.css">
-<link rel="stylesheet" href="classless.blog.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${esc(this.title)}</title>
+  <link rel="stylesheet" href="classless.reset.css">
+  <link rel="stylesheet" href="classless.base.css">
+  <link rel="stylesheet" href="classless.blog.css">
 </head>
 <body>
-${this._renderHeader()}
-${this._renderLogo()}
-${this._renderNav()}
-${this._renderAside()}
-${this._renderMain()}
-${this._renderFooter()}
-${this._renderAlertRegion()}
+  ${this.renderBody()}
 </body>
-</html>`;
+</html>`.trim();
   }
 
   /**
    * Render just the body content (useful for partial rendering)
    */
   renderBody() {
-    return `${this._renderHeader()}
-${this._renderLogo()}
-${this._renderNav()}
-${this._renderAside()}
-${this._renderMain()}
-${this._renderFooter()}
-${this._renderAlertRegion()}`;
+    return [
+      this._renderHeader(),
+      this._renderLogo(),
+      this._renderNav(),
+      this._renderAside(),
+      this._renderMain(),
+      this._renderFooter(),
+      this._renderAlertRegion(),
+    ].join('\n');
   }
 
   // Private rendering methods - enforce the rigid structure
 
   _renderHeader() {
-    return `  <header>
-    <h1>${this._escapeHtml(this.title)}</h1>
-    ${this.subtitle ? `<p>${this._escapeHtml(this.subtitle)}</p>` : ''}
-  </header>
-`;
+    const title = esc(this.title);
+    const subtitle = esc(this.subtitle);
+    return `
+    <header>
+      <h1>${title}</h1>
+      ${subtitle}
+    </header>`;
   }
 
   _renderLogo() {
@@ -194,8 +195,8 @@ ${this._renderAlertRegion()}`;
     }
 
     return `  <figure>
-    <img src="${this._escapeHtml(this.logo.src)}" alt="${this._escapeHtml(this.logo.alt)}">
-    ${this.logo.caption ? `<figcaption>${this._escapeHtml(this.logo.caption)}</figcaption>` : ''}
+    <img src="${esc(this.logo.src)}" alt="${esc(this.logo.alt)}">
+    ${this.logo.caption ? `<figcaption>${esc(this.logo.caption)}</figcaption>` : ''}
   </figure>
 `;
   }
@@ -206,8 +207,8 @@ ${this._renderAlertRegion()}`;
     }
 
     const links = this.navLinks.map(link => {
-      const ariaCurrent = link.ariaCurrent ? ` aria-current="${this._escapeHtml(link.ariaCurrent)}"` : '';
-      return `      <li><a href="${this._escapeHtml(link.href)}"${ariaCurrent}>${this._escapeHtml(link.text)}</a></li>`;
+      const ariaCurrent = link.ariaCurrent ? ` aria-current="${esc(link.ariaCurrent)}"` : '';
+      return `      <li><a href="${esc(link.url)}"${ariaCurrent}>${esc(link.text)}</a></li>`;
     }).join('\n');
 
     return `  <nav aria-label="Primary navigation">
@@ -224,8 +225,8 @@ ${links}
     }
 
     const links = this.pagerLinks.map(link => {
-      const ariaCurrent = link.ariaCurrent ? ` aria-current="${this._escapeHtml(link.ariaCurrent)}"` : '';
-      return `      <li><a href="${this._escapeHtml(link.href)}"${ariaCurrent}>${this._escapeHtml(link.text)}</a></li>`;
+      const ariaCurrent = link.ariaCurrent ? ` aria-current="${esc(link.ariaCurrent)}"` : '';
+      return `      <li><a href="${esc(link.url)}"${ariaCurrent}>${esc(link.text)}</a></li>`;
     }).join('\n');
 
     return `  <nav aria-label="Pagination">
@@ -242,7 +243,7 @@ ${links}
     }
 
     const categories = this.categories.map(cat =>
-      `      <li><a href="${this._escapeHtml(cat.href)}">${this._escapeHtml(cat.text)}</a></li>`
+      `      <li><a href="${esc(cat.url)}">${esc(cat.text)}</a></li>`
     ).join('\n');
 
     return `  <aside aria-label="Sidebar">
@@ -277,23 +278,23 @@ ${pager}
   }
 
   _renderArticle(post) {
-    return `      <article>
+
+
+    return `
+      <article>
         <header>
-          <h2>${this._escapeHtml(post.title)}</h2>
-          <p><time datetime="${this._escapeHtml(post.datetime)}">${this._escapeHtml(post.date)}</time></p>
+          <h2>${esc(post.title)}</h2>
+          <p><time datetime="${esc(post.datetime)}">${esc(post.date)}</time></p>
         </header>
         ${post.content}
         <footer>
-          <a href="${this._escapeHtml(post.readMoreHref)}">${this._escapeHtml(post.readMoreText)}</a>
+          <a href="${esc(post.url)}">${esc(post.readMoreText)}</a>
         </footer>
       </article>`;
   }
 
   _renderFooter() {
-    return `  <footer>
-    <p>${this.footerText}</p>
-  </footer>
-`;
+    return `<footer><p>${this.footerText}</p></footer>`;
   }
 
   _renderAlertRegion() {
@@ -308,16 +309,4 @@ ${alertContent}
   </section>`;
   }
 
-  /**
-   * Basic HTML escaping for security
-   */
-  _escapeHtml(str) {
-    if (str == null) return '';
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
-  }
 }
