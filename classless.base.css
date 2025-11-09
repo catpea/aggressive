@@ -1,10 +1,29 @@
 /* classless.base.css - Reusable foundation */
 
 :root {
+
+  --base03:    #002b36;
+  --base02:    #073642;
+  --base01:    #586e75;
+  --base00:    #657b83;
+  --base0:     #839496;
+  --base1:     #93a1a1;
+  --base2:     #eee8d5;
+  --base3:     #fdf6e3;
+  --yellow:    #b58900;
+  --orange:    #cb4b16;
+  --red:       #dc322f;
+  --magenta:   #d33682;
+  --violet:    #6c71c4;
+  --blue:      #268bd2;
+  --cyan:      #2aa198;
+  --green:     #859900;
+
+
   /* Typography scale */
   --font-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Courier New', monospace;
-  
+
   /* Type scale */
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -14,7 +33,7 @@
   --text-2xl: 1.5rem;
   --text-3xl: 1.875rem;
   --text-4xl: 2.25rem;
-  
+
   /* Spacing scale */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -23,23 +42,26 @@
   --space-xl: 2rem;
   --space-2xl: 3rem;
   --space-3xl: 4rem;
-  
+
   /* Color palette */
-  --color-text: #1a1a1a;
-  --color-text-muted: #6b7280;
-  --color-bg: #ffffff;
-  --color-bg-subtle: #f9fafb;
-  --color-border: #e5e7eb;
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
-  --color-accent: #7c3aed;
-  
+  --color-bg: var(--base03);
+  --color-bg-subtle:var(--base02);
+  --color-border: var(--blue);
+
+  --color-text:var(--base0);
+  --color-text-muted:var(--base00);
+
+  --color-primary:var(--blue);
+  --color-primary-hover:var(--cyan);
+  --color-accent: var(--magenta);
+
   /* Layout */
   --container-max: 75rem;
+
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
-  
+
   /* Transitions */
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;

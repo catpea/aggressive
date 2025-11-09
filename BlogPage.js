@@ -1,4 +1,5 @@
-import {esc} from './lib.js';
+import { esc, fdate } from './lib.js';
+import html from './html.js';
 
 /**
  * BlogPage - Semantic control layer for classless blog HTML generation
@@ -145,21 +146,21 @@ export default class BlogPage {
    * Render the complete HTML document
    */
   render() {
-    return `
-<!DOCTYPE html>
-<html lang="${this.lang}">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${esc(this.title)}</title>
-  <link rel="stylesheet" href="classless.reset.css">
-  <link rel="stylesheet" href="classless.base.css">
-  <link rel="stylesheet" href="classless.blog.css">
-</head>
-<body>
-  ${this.renderBody()}
-</body>
-</html>`.trim();
+    return html`
+      <!DOCTYPE html>
+      <html lang="${this.lang}">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${esc(this.title)}</title>
+        <link rel="stylesheet" href="classless.reset.css">
+        <link rel="stylesheet" href="classless.base.css">
+        <link rel="stylesheet" href="classless.blog.css">
+      </head>
+      <body>
+        ${this.renderBody()}
+      </body>
+      </html>`;
   }
 
   /**
@@ -182,7 +183,7 @@ export default class BlogPage {
   _renderHeader() {
     const title = esc(this.title);
     const subtitle = esc(this.subtitle);
-    return `
+    return html`
     <header>
       <h1>${title}</h1>
       ${subtitle}
@@ -194,11 +195,17 @@ export default class BlogPage {
       return '';
     }
 
-    return `  <figure>
-    <img src="${esc(this.logo.src)}" alt="${esc(this.logo.alt)}">
-    ${this.logo.caption ? `<figcaption>${esc(this.logo.caption)}</figcaption>` : ''}
-  </figure>
-`;
+    const src = esc(this.logo.src);
+    const alt = esc(this.logo.alt);
+    const caption = esc(this.logo.caption);
+    const figcaption = this.logo.caption ? `<figcaption>${caption}</figcaption>` : '';
+
+    return html`
+    <figure>
+      <img src="${src}" alt="${alt}">
+      ${figcaption}
+    </figure>`;
+
   }
 
   _renderNav() {
@@ -207,16 +214,20 @@ export default class BlogPage {
     }
 
     const links = this.navLinks.map(link => {
-      const ariaCurrent = link.ariaCurrent ? ` aria-current="${esc(link.ariaCurrent)}"` : '';
-      return `      <li><a href="${esc(link.url)}"${ariaCurrent}>${esc(link.text)}</a></li>`;
+      const url = esc(link.url);
+      const text = esc(link.text);
+      const ariaCurrentValue = esc(link.ariaCurrent);
+      const ariaCurrent = link.ariaCurrent ? ` aria-current="${ariaCurrentValue}"` : '';
+      return `<li><a href="${url}"${ariaCurrent}>${text}</a></li>`;
     }).join('\n');
 
-    return `  <nav aria-label="Primary navigation">
-    <ul>
-${links}
-    </ul>
-  </nav>
-`;
+    return html`
+      <nav aria-label="Primary navigation">
+        <ul>
+          ${links}
+        </ul>
+      </nav>
+    `;
   }
 
   _renderPager() {
@@ -225,16 +236,20 @@ ${links}
     }
 
     const links = this.pagerLinks.map(link => {
-      const ariaCurrent = link.ariaCurrent ? ` aria-current="${esc(link.ariaCurrent)}"` : '';
-      return `      <li><a href="${esc(link.url)}"${ariaCurrent}>${esc(link.text)}</a></li>`;
+      const url = esc(link.url);
+      const text = esc(link.text);
+      const ariaCurrentValue = esc(link.ariaCurrent);
+      const ariaCurrent = link.ariaCurrent ? ` aria-current="${ariaCurrentValue}"` : '';
+      return html`<li><a href="${url}"${ariaCurrent}>${text}</a></li>`;
     }).join('\n');
 
-    return `  <nav aria-label="Pagination">
-    <ul>
-${links}
-    </ul>
-  </nav>
-`;
+    return html`
+      <nav aria-label="Pagination">
+        <ul>
+          ${links}
+        </ul>
+      </nav>
+    `;
   }
 
   _renderAside() {
@@ -242,71 +257,84 @@ ${links}
       return '';
     }
 
-    const categories = this.categories.map(cat =>
-      `      <li><a href="${esc(cat.url)}">${esc(cat.text)}</a></li>`
-    ).join('\n');
+    const categories = this.categories.map(cat => {
+      const url = esc(cat.url);
+      const text = esc(cat.text);
+      return `<li><a href="${url}">${text}</a></li>`;
+    }).join('\n');
 
-    return `  <aside aria-label="Sidebar">
-    <h2>Categories</h2>
-    <ul>
-${categories}
-    </ul>
-  </aside>
-`;
+    return html`
+      <aside aria-label="Sidebar">
+        <h2>Categories</h2>
+        <ul>
+          ${categories}
+        </ul>
+      </aside>
+    `;
   }
 
   _renderMain() {
     if (this.posts.length === 0) {
-      return `  <main>
-    <section aria-label="Latest posts">
-      <p>No posts yet.</p>
-    </section>
-  </main>
-`;
+      return html`
+        <main>
+          <section aria-label="Latest posts">
+            <p>No posts yet.</p>
+          </section>
+        </main>
+        `;
     }
 
     const articles = this.posts.map(post => this._renderArticle(post)).join('\n');
     const pager = this._renderPager();
 
-    return `  <main>
-    <section aria-label="Latest posts">
-${articles}
-    </section>
-${pager}
-  </main>
-`;
+    return html`
+      <main>
+        <section aria-label="Latest posts">
+          ${articles}
+        </section>
+        ${pager}
+      </main>
+      `;
   }
 
   _renderArticle(post) {
 
+    const title = esc(post.title);
+    const datetime = esc(post.datetime);
+    const date = fdate(post.date);
+    const url = esc(post.url);
+    const readMoreText = esc(post.readMoreText);
 
-    return `
+    return html`
+
       <article>
         <header>
-          <h2>${esc(post.title)}</h2>
-          <p><time datetime="${esc(post.datetime)}">${esc(post.date)}</time></p>
+          <h2>${title}</h2>
+          <p><time datetime="${datetime}">${date}</time></p>
         </header>
         ${post.content}
         <footer>
-          <a href="${esc(post.url)}">${esc(post.readMoreText)}</a>
+          <a href="${url}">${readMoreText}</a>
         </footer>
       </article>`;
+
   }
 
   _renderFooter() {
-    return `<footer><p>${this.footerText}</p></footer>`;
+    return html`<footer><p>${this.footerText}</p></footer>`;
   }
 
   _renderAlertRegion() {
     if (this.alerts.length === 0) {
-      return `  <section id="alert-region" aria-live="polite"></section>`;
+      return `<section id="alert-region" aria-live="polite"></section>`;
     }
 
-    const alertContent = this.alerts.map(alert => `    ${alert}`).join('\n');
+    const alertContent = this.alerts.map(alert => `${alert}`).join('\n');
 
-    return `  <section id="alert-region" aria-live="polite">
-${alertContent}
-  </section>`;
+    return html`
+      <section id="alert-region" aria-live="polite">
+        ${alertContent}
+      </section>`;
   }
 
 }

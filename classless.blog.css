@@ -132,6 +132,8 @@ body > main > nav ul {
   align-items: center;
   padding: 0;
   margin: 0;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 body > main > nav li {
@@ -197,11 +199,46 @@ body > main {
   padding: var(--space-lg) 0;
 }
 
+body > main > section > article {
+  background: var(--color-bg-subtle);
+
+}
+
 body > main > section {
-  display: flex;
-  flex-direction: column;
+   display: flex;
+   flex-direction: column;
   gap: var(--space-2xl);
 }
+
+
+@media (min-width: 48rem) {
+
+ /* ACTIVATE WRAP*/
+ body > main > section {
+   container-type: inline-size;          /* enable container queries */
+    display: flex;
+    flex-direction: row;
+
+    flex-wrap: wrap;
+    gap: var(--space-2xl);
+ }
+ /* ADAPT WIDTH OF ITEMS IN A GROUP OF 3 */
+ body > main > section > article:nth-child(3n+1),
+ body > main > section > article:nth-child(3n+2)  { /* in a group of three, the second is 50% */
+   flex: 0 0 calc(50% - calc(var(--space-2xl)/2)); /* takes half the row and accounts for the gap set in parent */
+ }
+ body > main > section > article:nth-child(3n+3) {  /* in a group of three, the third is 100% */
+   flex: 0 0 100%; /* also required for short items, fill the full width */
+ }
+}
+ /* ---------- narrow‑container fallback ---------- */
+ @media (max-width: 48rem) {
+   body > main > section > article {
+    flex: 0 0 100% ! important;
+   }
+ }
+
+
 
 /* Article cards */
 article {
