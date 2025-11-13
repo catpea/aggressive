@@ -7,14 +7,102 @@ body {
     "header  header   header"
     "logo    logo     logo"
     "nav     nav      nav"
-    "aside   main     main"
+    "main   main     main"
     "footer  footer   footer"
     "alert   alert    alert";
+
   grid-template-columns: 15rem 1fr 1fr;
   min-height: 100vh;
   max-width: var(--container-max);
   margin: 0 auto;
 }
+
+
+
+
+body:has(#aside-menu:checked) {
+  grid-template-areas:
+    "header  header   header"
+    "logo    logo     logo"
+    "nav     nav      nav"
+    "aside   main     main"
+    "footer  footer   footer"
+    "alert   alert    alert";
+}
+
+aside {
+  display: none;
+}
+
+body:has(#aside-menu:checked) aside {
+  display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.custom-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.custom-radio svg {
+  width: 24px;
+  height: 24px;
+  color: #777;
+  transition: transform 0.2s, color 0.2s;
+  display: inline-block;
+}
+
+.custom-radio input:checked + svg path {
+  fill: #0d6efd;
+}
+
+
+
+.custom-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+.custom-checkbox svg {
+  width: 24px;
+  height: 24px;
+  color: #777;
+  transition: transform 0.2s, color 0.2s;
+  display: inline-block;
+}
+
+.custom-checkbox input:checked + svg path {
+  fill: #0d6efd;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Grid placement - Semantic structure enforcement */
 body > header {
@@ -194,6 +282,11 @@ body > aside a:hover {
   padding-left: var(--space-md);
 }
 
+
+
+
+
+
 /* Main content area */
 body > main {
   padding: var(--space-lg) 0;
@@ -207,31 +300,81 @@ body > main > section > article {
 body > main > section {
    display: flex;
    flex-direction: column;
-  gap: var(--space-2xl);
+   gap: var(--space-2xl);
 }
+
+
+
+
+
+
 
 
 @media (min-width: 48rem) {
 
  /* ACTIVATE WRAP*/
- body > main > section {
-   container-type: inline-size;          /* enable container queries */
-    display: flex;
-    flex-direction: row;
 
-    flex-wrap: wrap;
-    gap: var(--space-2xl);
- }
+
+
+
+
  /* ADAPT WIDTH OF ITEMS IN A GROUP OF 3 */
- body > main > section > article:nth-child(3n+1),
- body > main > section > article:nth-child(3n+2)  { /* in a group of three, the second is 50% */
-   flex: 0 0 calc(50% - calc(var(--space-2xl)/2)); /* takes half the row and accounts for the gap set in parent */
+ body:has(#blog-layout:checked) {
+   > main {
+     > section {
+
+      container-type: inline-size;          /* enable container queries */
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-2xl);
+
+       > article {
+         /* first and second items in each trio (3n+1, 3n+2) */
+         &:nth-child(3n + 1), &:nth-child(3n + 2) {
+           flex: 0 0 calc(50% - calc(var(--space-2xl) / 2));
+         }
+         /* third item in each trio (3n+3) */
+         &:nth-child(3n + 3) {
+           flex: 0 0 100%;
+         }
+       }
+     }
+   }
  }
- body > main > section > article:nth-child(3n+3) {  /* in a group of three, the third is 100% */
-   flex: 0 0 100%; /* also required for short items, fill the full width */
+
+ /* Show 3 articles per row */
+ body:has(#grid-layout:checked) {
+
+  max-width: 100%;
+
+
+   > main {
+     > section {
+       display: grid;
+       grid-template-columns: repeat(4, 1fr);
+       gap: var(--space-2xl);   /* optional spacing between items */
+
+
+     }
+   }
  }
+
+
+
+
+
+
+
 }
- /* ---------- narrow‑container fallback ---------- */
+
+
+
+
+
+
+
+/* ---------- narrow‑container fallback ---------- */
  @media (max-width: 48rem) {
    body > main > section > article {
     flex: 0 0 100% ! important;
